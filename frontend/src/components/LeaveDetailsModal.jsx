@@ -53,7 +53,7 @@ const LeaveDetailsModal = ({
       }
     } catch (error) {
       console.error("Error updating leave:", error);
-      alert("Updated Successfully.");
+      
     }
   };
 

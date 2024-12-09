@@ -92,7 +92,7 @@ const EditLeave = ({ setOpenEditLeave, openEditLeave }) => {
             <div className="button-parent-section  relative ">
               <div className="button-section w-fit absolute  right-0  flex items-center gap-4 mt-3">
                 <button className="border border-gray-400 rounded-lg px-4 py-2 text-md font-semibold">
-                  Cancel
+                  Cancel 
                 </button>
                 <button className="rounded-lg px-4 py-2 border border-[#2986CE] text-md text-white bg-[#2986CE] font-semibold">
                   Request
