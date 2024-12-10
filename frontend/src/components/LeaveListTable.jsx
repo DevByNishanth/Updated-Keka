@@ -5,7 +5,7 @@ import eye from '../assets/eye-icon-new.svg'
 import LeaveDetailsModal from "./LeaveDetailsModal"; // Import the modal component
 
 const LeaveListTable = ({ leaves, setShowTint, handleDeleteLeave, filterStatus }) => {
-  const { employeeLeaveDetails, setemployeeLeaveDetails } = useContext(Data);
+  const { employeeLeaveDetails, setemployeeLeaveDetails, } = useContext(Data);
 
   function handleOpenTint() {
     setShowTint(true);

@@ -25,6 +25,7 @@ const AdminDashboard = () => {
   
     fetchLeaveRequests();
   }, [  ]);
+  
 
   const handleClick = async (leaveData, status) => {
     try {
@@ -70,7 +71,7 @@ const AdminDashboard = () => {
             <div className="header flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <img src={item.img || userImg} alt="" />
-                <p className="font-semibold text-md">{item.user}Santhiya</p>
+                <p className="font-semibold text-md">{item.user_name}</p>
               </div>
               <div className="button-section flex items-center gap-2 bg-gray-100 px-2 py-1 rounded-full w-fit">
                 <button

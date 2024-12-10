@@ -20,6 +20,14 @@ from rest_framework_simplejwt.tokens import RefreshToken
 def protected_view(request):
     return Response({"message": "You have accessed a protected endpoint!"})
 
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def get_username(request, pk=None):
+    # Get the username of the authenticated user
+    user = User.objects.get(id=pk)
+    username = user.username
+    return Response({'username': username})
+
 @api_view(['POST'])
 @permission_classes([AllowAny])
 def register(request):
@@ -34,10 +42,10 @@ class CustomTokenObtainPairView(TokenObtainPairView):
         username = request.data.get("username")
         password = request.data.get("password")
         
-
+        print(username, password)
         
         user = authenticate(request, username=username, password=password)
-        
+        print(user)
         if user is not None:
             refresh = RefreshToken.for_user(user)
             

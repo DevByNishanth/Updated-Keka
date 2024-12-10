@@ -49,6 +49,15 @@ class LeaveViewSet(viewsets.ModelViewSet):
        
         serialized_leave_data = LeaveSerializer(leave_data, many=True)
         return Response(serialized_leave_data.data)
+    @action(detail=False, methods=['get'])
+    def get_user_leave(self, request, pk=None):
+        """
+        Custom action to get leave data for the authenticated user.
+        """       
+        leave_data = Leave.objects.filter(user_id= pk)
+        print(leave_data)
+        serialized_leave_data = LeaveSerializer(leave_data, many=True)
+        return Response(serialized_leave_data.data)
     
     @action(detail=False, methods=['delete'])
     def delete_leave_by_values(self, request, pk=None):
@@ -65,9 +74,11 @@ class LeaveViewSet(viewsets.ModelViewSet):
             if not leave:
                 return Response({'error': 'Leave record not found.'}, status=status.HTTP_404_NOT_FOUND)
 
-            # Optionally: Check if the authenticated user has permission to delete this record
-            if leave.user_id != request.user.id and not request.user.is_staff:
-                return Response({'error': 'You are not authorized to delete this leave.'}, status=status.HTTP_403_FORBIDDEN)
+            print(request.user.is_staff)
+            if not request.user.is_staff:
+                print("****************")
+                return Response({'detail': 'You are not authorized to delete this leave.'}, status=status.HTTP_403_FORBIDDEN)
+            
 
             # Delete the leave record
             leave.delete()

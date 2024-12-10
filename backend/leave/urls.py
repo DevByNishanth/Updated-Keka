@@ -9,6 +9,7 @@ leave_detail = LeaveViewSet.as_view({'get': 'get_leave_detail'})
 leave_delete = LeaveViewSet.as_view({'delete': 'delete_leave_by_values'})
 leave_update = LeaveViewSet.as_view({'put': 'update_leave'})
 leave_approve = LeaveViewSet.as_view({'put': 'approve_leave'})
+user_leave = LeaveViewSet.as_view({'get': 'get_user_leave'})
 
 urlpatterns = [
     path('leave/', leave_list, name='leave-list'),
@@ -17,5 +18,6 @@ urlpatterns = [
     path('leave/<int:pk>/', leave_detail, name='get_leave_detail'),
     path('leave/delete/<int:pk>/', leave_delete, name='leave-delete-by-values'),
     path('leave/update/<int:pk>/', leave_update, name='leave-update'),
-    path('leave/approve/<int:pk>/', leave_approve, name='approve_leave')
+    path('leave/approve/<int:pk>/', leave_approve, name='approve_leave'),
+    path('leave/user_leave/<int:pk>/', user_leave, name='user_leave'),
 ]

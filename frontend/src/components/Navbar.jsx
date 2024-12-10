@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
 import dashboard from "../assets/dashboard.svg";
 import feeds from "../assets/feed.svg";
 import organization from "../assets/organization.svg";
@@ -8,7 +8,12 @@ import userImg from "../assets/user-quality.png";
 import search from "../assets/search.png";
 import bell from "../assets/bell.svg";
 import { NavLink } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { Data } from "../context/store";
+
 const Navbar = () => {
+  const {userName, setUserName} = useContext(Data)
+  const navigate = useNavigate();
   const [openSidebar, setOpenSidebar] = useState(false);
   const sidebarRef = useRef(null);
 
@@ -29,6 +34,11 @@ const Navbar = () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
+
+  function handleLogout(){
+    navigate("/");
+  
+  }
 
   return (
     <>
@@ -76,7 +86,13 @@ const Navbar = () => {
           <div className="bell-icon-container gray-border p-2 w-fit rounded-full px-[10px] bg-white">
             <img src={bell} className="w-4" />
           </div>
-          <img src={userImg} className="lg:w-[25px] xl:w-[35px]" />
+          {/* login */}
+          <button onClick={handleLogout} className="bg-black px-2 text-md py-1 text-white rounded-full">Log out</button>
+          {/* <img src={userImg} className="lg:w-[25px] xl:w-[35px]" /> */}
+          <div className="bg-blue-300 w-[30px] flex items-center justify-center  text-white  font-semibold text-lg rounded-full">
+          <p className="">{userName.slice(0,1)}</p>
+          </div>
+        
         </div>
       </div>
 
