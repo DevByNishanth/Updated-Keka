@@ -7,7 +7,7 @@ const AdminEditModal = ({
 }) => {
   return (
     <>
-      <div className="main-container rounded-lg   w-[80%] sm:w-[60%] p-4 bg-white shadow-lg fixed top-[20%] left-[50%] translate-x-[-50%]">
+      <div className="main-container rounded-lg   w-[80%] sm:w-[60%] p-4 bg-white shadow-2xl fixed top-[20%] left-[50%] translate-x-[-50%]">
         <div className="header flex items-center justify-between border-bottom pb-4 ">
           <div className="first-container flex items-center gap-4">
             <h1 className="font-semibold">Approved / Rejected list Details</h1>

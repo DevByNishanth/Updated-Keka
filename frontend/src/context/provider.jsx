@@ -10,7 +10,7 @@ export const DataProvider = ({ children }) => {
   const [token, setToken] = useState(localStorage.getItem("jwtToken")); // Use state for token
   const [userName, setUserName] = useState("");
 
- 
+ const [deletingLeaveId, setDeletingLeaveId] = useState(null);
 
   // Decode the token and set userId when token changes
   useEffect(() => {
@@ -82,6 +82,8 @@ export const DataProvider = ({ children }) => {
         setToken, // Pass setToken to allow token update from other components (e.g., login page)
         userName, 
         setUserName,
+        deletingLeaveId,
+         setDeletingLeaveId,
       }}
     >
       {children}

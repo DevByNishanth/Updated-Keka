@@ -15,9 +15,10 @@ const LeaveDetailsModal = ({
   setShowTint,
   handleDeleteLeave,
 }) => {
-  const { updateLeave } = useContext(Data);
+  const { updateLeavem, setDeletingLeaveId } = useContext(Data);
   const [openEditLeave, setOpenEditLeave] = useState(false);
   const [openCurrentModal, setOpenCurrentModal] = useState(true);
+
 
   const handleRequestUpdate = async (updatedLeave) => {
    
@@ -151,6 +152,7 @@ const LeaveDetailsModal = ({
             </button>
             <button
               onClick={() => {
+                setDeletingLeaveId(leave.leave_id);
                 handleDeleteLeave(leave.leave_id);
                 onClose();
                 removeTint();
@@ -159,7 +161,7 @@ const LeaveDetailsModal = ({
             >
               <span className="flex gap-2 m-auto items-center text-white font-semibold text-lg ">
                 <img src={deleteIcon} alt="" />
-                Delete
+                Delete 
               </span>
             </button>
           </div>

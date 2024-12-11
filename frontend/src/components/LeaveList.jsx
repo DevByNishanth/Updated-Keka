@@ -17,46 +17,51 @@ const LeaveList = ({ showTint, setShowTint }) => {
   const token = localStorage.getItem('jwtToken');
   const decoded = jwtDecode(token);
   const user_id = decoded.user_id
+const [openDeleteConfrimation, setOpenDeleteConfirmation] = useState(false);
+const [deleteConfirm, setDeleteConfirm] = useState(false);
 
-
-  const { employeeLeaveDetails, setEmployeeLeaveDetails, userName } = useContext(Data)
+  const { employeeLeaveDetails, setEmployeeLeaveDetails, userName,  } = useContext(Data)
+  const {deletingLeaveId,setDeletingLeaveId} = useContext(Data)
   // const [filterStatus, setFilterStatus] = useState("");
   const [selectedTime, setSelectedTime] = useState("fullDay");
-
-  const handleTimeChange = (e) => {
-    setSelectedTime(e.target.value);
-  };
+function handleCloseDeleteModal(){
+  setOpenDeleteConfirmation(false)
+}
+function handleDeleteModal(){
+  console.log(
+    "Deleting id :", deletingLeaveId
+  )
+   // Make an API call to delete the leave from the database
+   axios
+   .delete(`http://127.0.0.1:8000/api/leave/delete/${deletingLeaveId}/`, {
+     headers: {
+       Authorization: `Bearer ${token}`,
+     },
+   })
+   .then((response) => {
+     console.log("leave id :", deletingLeaveId);
+     // If deletion was successful, filter the local state and update context
+     const updatedLeaves = employeeLeaveDetails.filter(
+       (leave) => leave.leave_id !== deletingLeaveId
+     );
+     setEmployeeLeaveDetails(updatedLeaves); // Update the context with filtered data
+   })
+   .catch((error) => {
+     if (error.response && error.response.status === 403) {
+       console.error("Error:", error.response.data.detail);
+       alert(error.response.data.detail)
+       // Show an error message or update UI here
+     } else {
+       console.error("Error:", error.message);
+     }
+   });
+   setOpenDeleteConfirmation(false)
+}
   const handleDeleteLeave = (leaveId) => {
-    const token = localStorage.getItem('jwtToken');
-    const decoded = jwtDecode(token);
-    const user_id = decoded.user_id;
-
-    console.log(leaveId);
-confirm("Are you sure to delete the leave request")
-    // Make an API call to delete the leave from the database
-    axios
-      .delete(`http://127.0.0.1:8000/api/leave/delete/${leaveId}/`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((response) => {
-        console.log(response);
-        // If deletion was successful, filter the local state and update context
-        const updatedLeaves = employeeLeaveDetails.filter(
-          (leave) => leave.leave_id !== leaveId
-        );
-        setEmployeeLeaveDetails(updatedLeaves); // Update the context with filtered data
-      })
-      .catch((error) => {
-        if (error.response && error.response.status === 403) {
-          console.error("Error:", error.response.data.detail);
-          alert(error.response.data.detail)
-          // Show an error message or update UI here
-        } else {
-          console.error("Error:", error.message);
-        }
-      });
+    setOpenDeleteConfirmation(true)
+    // const token = localStorage.getItem('jwtToken');
+    // const decoded = jwtDecode(token);
+    // const user_id = decoded.user_id; 
   };
 
   const [showLeaveApplyModal, setShowLeaveApplyModal] = useState(false);
@@ -427,6 +432,25 @@ confirm("Are you sure to delete the leave request")
       ) : (
         ""
       )}
+
+      {openDeleteConfrimation ? <div className="delete-confirm-box fixed top-[20%] left-[50%] translate-x-[-50%] bg-white p-2 rounded-lg shadow-2xl border w-[80%] sm:w-[60%]">
+        <div className="header border-bottom py-2 ">
+          <p className="font-semibold text-lg">Delete Confirmation</p>
+        </div>
+        <div className="body-content p-4">
+       <div className="delete-icon bg-[#D75378CC] w-fit rounded-full p-2 m-auto">
+       <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M8.75 26.25C8.0625 26.25 7.47417 26.0054 6.985 25.5163C6.49583 25.0271 6.25083 24.4383 6.25 23.75V7.5H5V5H11.25V3.75H18.75V5H25V7.5H23.75V23.75C23.75 24.4375 23.5054 25.0263 23.0163 25.5163C22.5271 26.0063 21.9383 26.2508 21.25 26.25H8.75ZM21.25 7.5H8.75V23.75H21.25V7.5ZM11.25 21.25H13.75V10H11.25V21.25ZM16.25 21.25H18.75V10H16.25V21.25Z" fill="white"/>
+        </svg>
+       </div>
+       <h1 className="font-semibold text-xl w-fit m-auto mt-2 ">Are you sure ?</h1>
+        <p className="font-semibold text-lg mt-4 w-fit m-auto">Are you surely want to delete this item ?</p>
+        <div className="button-section flex gap-2 items-center w-fit m-auto mt-5">
+          <button onClick={handleDeleteModal} className="delete-btn bg-[#D75378] text-white font-semibold rounded-lg px-5 text-lg py-3">Delete</button>
+          <button onClick={handleCloseDeleteModal} className="cancel cancel-border text-black text-lg font-semibold rounded-lg px-5 py-3">Cancel</button>
+        </div>
+        </div>
+      </div> : ""}
     </>
   );
 };

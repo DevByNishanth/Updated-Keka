@@ -210,15 +210,15 @@ const AdminDashboard = () => {
                 </div>
                 <div className="body-content mt-2">
                   <table>
-                    <tr className="text-[12px] ">
-                      <td>Leave Date : </td>
-                      <td className="">
+                    <tr className="text-[14px] ">
+                      <td className="font-semibold">Leave Date : </td>
+                      <td className="pl-2">
                         {item.fromDate} - {item.toDate}
                       </td>
                     </tr>
-                    <tr className="font-semibold mt-1">
-                      <td>Leave Type :</td>
-                      <td className="pl-1">{item.leave_type}</td>
+                    <tr className="text-[14px] mt-1">
+                      <td className="font-semibold">Leave Type :</td>
+                      <td className="pl-2">{item.leave_type}</td>
                       
                     </tr>
                   </table>
@@ -329,12 +329,12 @@ const AdminDashboard = () => {
     className="alert bg-green-300 text-white rounded-lg px-3 py-2 w-[240px] font-semibold text-[13px] fixed right-[-100%] top-[13%] animate-slide-in"
   >
     <div className="flex items-center gap-3">
-      <div className="icon-container border border-black rounded-full">
+      <div className="icon-container border border-white rounded-full">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="18"
           height="18"
-          fill="black"
+          fill="white"
           className="bi bi-check-lg"
           viewBox="0 0 16 16"
         >
@@ -356,12 +356,12 @@ const AdminDashboard = () => {
     className="alert bg-red-300 text-white rounded-lg px-3 py-2 w-[240px] font-semibold text-[13px] fixed right-[-100%] top-[13%] animate-slide-in"
   >
     <div className="flex items-center gap-3">
-      <div className="icon-container border border-black rounded-full">
+      <div className="icon-container border border-white rounded-full">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="16"
           height="16"
-          fill="black"
+          fill="white"
           className="bi bi-x"
           viewBox="0 0 16 16"
         >
