@@ -23,7 +23,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('base.urls')),
     path('api/',include('employees.urls')),
-    path('api/',include('leave.urls'))
+    path('api/',include('leave.urls')),
+    path('api/',include('admin_dashboard.urls'))
 ]
 
 if settings.DEBUG:

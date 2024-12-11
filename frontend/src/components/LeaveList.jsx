@@ -32,7 +32,7 @@ const LeaveList = ({ showTint, setShowTint }) => {
     const user_id = decoded.user_id;
 
     console.log(leaveId);
-
+confirm("Are you sure to delete the leave request")
     // Make an API call to delete the leave from the database
     axios
       .delete(`http://127.0.0.1:8000/api/leave/delete/${leaveId}/`, {

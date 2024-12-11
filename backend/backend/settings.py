@@ -45,7 +45,8 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt.token_blacklist',
     'base',
     'employees',
-    'leave'
+    'leave',
+    'admin_dashboard',
 ]
 
 MIDDLEWARE = [

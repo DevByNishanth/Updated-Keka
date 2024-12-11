@@ -21,9 +21,16 @@ const LoginForm = () => {
       console.log("Token from backend:", token);
       localStorage.setItem("jwtToken", token); // Save token in local storage
       
+
+      
       if(token){
-        navigate("/dashboard");
-        window.location.reload()
+        if(username == "HR"){
+          navigate("/Admindashboard")
+        }else{
+          navigate("/dashboard");
+          window.location.reload()
+        }
+        
       }
     } catch (error) {
       console.error("Login failed:", error.response?.data || error.message);

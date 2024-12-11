@@ -74,10 +74,9 @@ class LeaveViewSet(viewsets.ModelViewSet):
             if not leave:
                 return Response({'error': 'Leave record not found.'}, status=status.HTTP_404_NOT_FOUND)
 
-            print(request.user.is_staff)
-            if not request.user.is_staff:
-                print("****************")
-                return Response({'detail': 'You are not authorized to delete this leave.'}, status=status.HTTP_403_FORBIDDEN)
+            # print(request.user.is_staff)
+            # if not request.user.is_staff:
+            #     return Response({'detail': 'You are not authorized to delete this leave.'}, status=status.HTTP_403_FORBIDDEN)
             
 
             # Delete the leave record

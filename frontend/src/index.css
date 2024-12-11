@@ -28,4 +28,19 @@ input::placeholder{
     font-weight: 600;
 }
 
+.admin-tint{
+    background-color: rgba(0, 0, 0, 0.788);
+}
+@keyframes slideIn {
+    0% {
+      right: -100%; /* Start off the screen */
+    }
+    100% {
+      right: 0; /* Final position */
+    }
+  }
+  
+  .animate-slide-in {
+    animation: slideIn 0.5s ease-out forwards; /* Apply the animation */
+  }
   

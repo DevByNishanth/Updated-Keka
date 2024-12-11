@@ -1,7 +1,7 @@
 from django.urls import path
 from leave.views import LeaveViewSet
 
-# Define viewset actions
+
 leave_list = LeaveViewSet.as_view({'get': 'get_leave_data'})
 leave_get = LeaveViewSet.as_view({'post': 'approve_leave'})
 leave_submit = LeaveViewSet.as_view({'post': 'submit_leave_form'})
