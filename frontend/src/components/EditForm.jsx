@@ -151,9 +151,9 @@ const EditForm = ({ leave, onRequestUpdate, onClose, setopenEditFormModalFinal, 
                 setFormData({ ...formData, notify: e.target.value })
               }
             >
-              <option value="">Select Employee</option>
-              <option>Sarfaras Sir</option>
-              <option>AnandhKumar Sir</option>
+              <option value="">Select Reporting Manager</option>
+              <option>SARFARAZ AHMED A</option>
+              <option>Dr. H. Anandakumar</option>
             </select>
             <div className="button-parent-section relative">
               <div className="button-section w-fit absolute right-0 flex items-center gap-4 mt-3">

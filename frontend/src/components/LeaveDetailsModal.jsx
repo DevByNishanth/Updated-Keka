@@ -113,17 +113,17 @@ const LeaveDetailsModal = ({
               <tr>
                 <td className="pr-4 text-lg">Leave Date :</td>
                 <td className="pl-4 text-lg">
-                  {leave.from} {"   "} to {leave.to}
+                  {leave.fromDate} {"   "} to {leave.toDate}
                 </td>
               </tr>
               <tr className="">
                 <td className="pr-4 pt-3 text-lg">Leave Type :</td>
-                <td className="pl-4 pt-3 text-lg">{leave.type}</td>
+                <td className="pl-4 pt-3 text-lg">{leave.leave_type}</td>
               </tr>
               <tr className="">
                 <td className="pr-4 pt-3 text-lg">Notes :</td>
                 <td className="pl-4 pt-3 text-lg">
-                  {leave.reason || "No Notes Mentioned"}
+                  {leave.notes || "No Notes Mentioned"}
                 </td>
               </tr>
               <tr className="">
@@ -131,8 +131,8 @@ const LeaveDetailsModal = ({
                 <td className="pl-4 pt-3 text-lg">Surya Chandran</td>
               </tr>
               <tr className="">
-                <td className="pr-4 pt-3 text-lg">Approvedd on :</td>
-                <td className="pl-4 pt-3 text-lg">{leave.from}</td>
+                {/* <td className="pr-4 pt-3 text-lg">Approvedd on :</td>
+                <td className="pl-4 pt-3 text-lg">{leave.from}</td> */}
               </tr>
             </table>
           </div>

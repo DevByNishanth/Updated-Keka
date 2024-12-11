@@ -142,7 +142,7 @@ const AdminDashboard = () => {
     }
    setTimeout(() => {
     window.location.reload()
-   }, 4000);
+   }, 3000);
   };
   
 
@@ -167,7 +167,7 @@ const AdminDashboard = () => {
           </div>
         </div>
         {/* ------------Leave Requests------------  */}
-        <div className="leave-request-container mt-4 grid gap-3 sm:grid-cols-2 md:grid-cols-4 h-[300px] overflow-auto pr-2">
+        <div className="leave-request-container mt-4 grid gap-3 sm:grid-cols-2 md:grid-cols-4 h-fit overflow-auto pr-2">
           {leaveRequest.map((item, index) => {
             return (
               <div className="card border rounded-lg p-3 h-fit">

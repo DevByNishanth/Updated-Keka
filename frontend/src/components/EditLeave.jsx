@@ -86,13 +86,13 @@ const EditLeave = ({ setOpenEditLeave, openEditLeave }) => {
               className="border border-black w-[100%] px-2 sm:px-4 py-2 sm:py-2 text-md  rounded-lg mt-1"
             >
               <option value="">Select Employee</option>
-              <option>Sarfaras Sir</option>
-              <option>AnandhKumar Sir</option>
+              <option>SARFARAZ AHMED Ar</option>
+              <option>Dr. H. Anandakumar</option>
             </select>
             <div className="button-parent-section  relative ">
               <div className="button-section w-fit absolute  right-0  flex items-center gap-4 mt-3">
                 <button className="border border-gray-400 rounded-lg px-4 py-2 text-md font-semibold">
-                  Cancel 
+                  Cancel
                 </button>
                 <button className="rounded-lg px-4 py-2 border border-[#2986CE] text-md text-white bg-[#2986CE] font-semibold">
                   Request

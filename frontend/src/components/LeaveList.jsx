@@ -403,9 +403,9 @@ function handleDeleteModal(){
                 value={formData.notify}
                 onChange={handleFormDataChange}
               >
-                <option value="">Select Employee</option>
-                <option>Sarfaras Sir</option>
-                <option>AnandhKumar Sir</option>
+                <option value="">Select Reporting Manager</option>
+                <option>SARFARAZ AHMED A</option>
+                <option>Dr. H. Anandakumar</option>
               </select>
               <div className="button-parent-section  relative ">
                 <div className="button-section w-fit absolute  right-0  flex items-center gap-4 mt-3">
@@ -433,7 +433,7 @@ function handleDeleteModal(){
         ""
       )}
 
-      {openDeleteConfrimation ? <div className="delete-confirm-box fixed top-[20%] left-[50%] translate-x-[-50%] bg-white p-2 rounded-lg shadow-2xl border w-[80%] sm:w-[60%]">
+      {openDeleteConfrimation ? <div className="delete-confirm-box fixed top-[20%] left-[50%] translate-x-[-50%] bg-white p-2 rounded-lg shadow-2xl border w-[80%] sm:w-[40%]">
         <div className="header border-bottom py-2 ">
           <p className="font-semibold text-lg">Delete Confirmation</p>
         </div>
