@@ -4,14 +4,14 @@ from rest_framework.decorators import api_view, permission_classes, authenticati
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.views import APIView
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
-from rest_framework_simplejwt.token_blacklist.models import BlacklistedToken, OutstandingToken
-
-from .models import Todo
-from .serializers import TodoSerializer, UserRegisterSerializer, UserSerializer
+from .serializers import  UserRegisterSerializer, UserSerializer, ChangePasswordSerializer
 from rest_framework.authentication import TokenAuthentication
-from datetime import datetime, timedelta
-from django.contrib.auth import authenticate
+from django.contrib.auth import authenticate, update_session_auth_hash
 from rest_framework_simplejwt.tokens import RefreshToken
+from .serializers import ForgotPasswordSerializer,ResetPasswordSerializer
+from rest_framework import status
+from django.core.cache import cache
+from base.utils import send_otp
 
 
 @api_view(['GET'])
@@ -23,7 +23,6 @@ def protected_view(request):
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def get_username(request, pk=None):
-    # Get the username of the authenticated user
     user = User.objects.get(id=pk)
     username = user.username
     return Response({'username': username})
@@ -55,7 +54,6 @@ class CustomTokenObtainPairView(TokenObtainPairView):
                 'token': str(refresh.access_token),
             }
 
-            # Set cookies for tokens
             res = Response(response_data)
             res.set_cookie(
                 key='access_token',
@@ -127,14 +125,7 @@ def logout(request):
         print(e)
         return Response({'success':False})
 
-class TodoListView(APIView):
-    # authentication_classes = [TokenAuthentication]
-    permission_classes = [IsAuthenticated]
 
-    def get(self, request):
-        todos = Todo.objects.all()
-        serializer = TodoSerializer(todos, many=True)
-        return Response(serializer.data)
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
@@ -142,3 +133,63 @@ def is_logged_in(request):
     serializer = UserSerializer(request.user, many=False)
     return Response(serializer.data)
 
+class ForgotPasswordView(APIView):
+    permission_classes = []
+
+    def post(self, request):
+        email = request.data.get('email')
+        try:
+            otp = send_otp(email)
+            cache.set(f'otp_{email}', otp, timeout=600)  # OTP expires in 5 minutes
+            return Response({"message": "OTP sent for password reset."}, status=status.HTTP_200_OK)
+        except User.DoesNotExist:
+            return Response({"error": "User not found."}, status=status.HTTP_404_NOT_FOUND)
+
+class ResetPasswordView(APIView):
+    permission_classes = []
+
+    def post(self, request):
+        user = User.objects.get(email=request.data['email'])
+
+        email = request.data.get('email')
+        otp = request.data.get('otp')
+        new_password = request.data.get('new_password')
+        
+        # cached_otp = cache.get(f'otp_{email}')
+        # print(cached_otp)
+        if otp :
+            user = User.objects.get(email=email)
+            user.set_password(new_password)
+            user.save()
+            cache.delete(f'otp_{email}')
+            return Response({"message": "Password reset successfully."}, status=status.HTTP_200_OK)
+        return Response({"error": "Invalid or expired OTP."}, status=status.HTTP_400_BAD_REQUEST)
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def change_password_view(request):
+    if request.method == 'POST':
+        serializer = ChangePasswordSerializer(data=request.data)
+        if serializer.is_valid():
+            user = request.user
+            if user.check_password(serializer.data.get('old_password')):
+                user.set_password(serializer.data.get('new_password'))
+                user.save()
+                update_session_auth_hash(request, user)  # To update session after password change
+                return Response({'message': 'Password changed successfully.'}, status=status.HTTP_200_OK)
+            return Response({'error': 'Incorrect old password.'}, status=status.HTTP_400_BAD_REQUEST)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['POST'])
+@permission_classes([AllowAny])
+def verify_email(request):
+    email = request.data.get('email')
+    otp = request.data.get('otp')
+    cached_otp = cache.get(f'otp_{email}')
+    
+    if cached_otp and str(cached_otp) == otp:
+        user = User.objects.get(email=email)
+        user.is_email_verified = True
+        user.save()
+        cache.delete(f'otp_{email}')
+        return Response({"message": "Email verified successfully."}, status=status.HTTP_200_OK)
+    return Response({"error": "Invalid or expired OTP."}, status=status.HTTP_400_BAD_REQUEST)

@@ -7,12 +7,13 @@ import team from "../assets/team.svg";
 import userImg from "../assets/user-quality.png";
 import search from "../assets/search.png";
 import bell from "../assets/bell.svg";
+import logo from "../assets/logo.png";
 import { NavLink } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { Data } from "../context/store";
 
 const Navbar = () => {
-  const {userName, setUserName} = useContext(Data)
+  const { userName } = useContext(Data);
   const navigate = useNavigate();
   const [openSidebar, setOpenSidebar] = useState(false);
   const sidebarRef = useRef(null);
@@ -35,29 +36,34 @@ const Navbar = () => {
     };
   }, []);
 
-  function handleLogout(){
+  function handleLogout() {
     navigate("/");
-  
   }
 
   return (
     <>
-      <div className="main-container w-[100%] font-lato hidden sm:flex items-center py-1 gap-2 justify-between ">
-        <div className="logo-container flex gap-3 items-center bg-[#fafafa] text-center w-[200px] rounded-full py-1">
-          <h1 className=" text-xl font-semibold px-8 py-2 md:px-6 md:py-[10px] sm:text-[18px] md:text-[21px] lg:text-[20px] xl:px-12 xl:py-2  md:font-medium  xl:text-[24px] m-auto">
-            LOGO
-          </h1>
+      <div className="main-container w-[100%] font-lato lato hidden sm:flex items-center py-1 gap-2 justify-between ">
+        <div className="logo-container">
+          <img src={logo} className="w-[140px]" />
         </div>
-        <div className="navlink-container flex gap-6 items-center bg-[#fafafa] sm:text-[14px] md:text-[12px] lg:text-[12px]  xl:text-[14px] text-[#222222] px-6 py-4 rounded-full">
-          <div className="link flex items-center gap-1">
-            <img src={dashboard} className="w-[20px]" />
-            <p>Dashboard</p>
-          </div>
+        <div className="navlink-container flex gap-6 items-center bg-[#F5FAFD] sm:text-[14px] md:text-[12px] lg:text-[12px]  xl:text-[14px] text-[#222222] px-6 py-4 rounded-full">
+          <NavLink
+            to="/Dashboard"
+            style={({ isActive }) => ({ color: isActive ? "#2986CE" : "" })}
+          >
+            <div className="link flex items-center gap-1">
+              <img src={dashboard} className="w-[20px]" />
+              <p>Dashboard</p>
+            </div>
+          </NavLink>
           <div className="link flex items-center gap-1">
             <img src={feeds} className="w-[20px]" />
             <p>Feeds</p>
           </div>
-          <NavLink to="/MyDetails">
+          <NavLink
+            to="/MyDetails"
+            style={({ isActive }) => ({ color: isActive ? "#2986CE" : "" })}
+          >
             <div className="link flex items-center gap-1">
               <img src={profile} className="w-[20px]" />
               <p>My Details</p>
@@ -74,7 +80,7 @@ const Navbar = () => {
             <p>Organization Details</p>
           </div>
         </div>
-        <div className="search-container hidden lg:flex items-center gap-3 bg-[#fafafa] px-3 lg:py-3 xl:py-3 rounded-full ">
+        <div className="search-container hidden lg:flex items-center gap-3 bg-[#F5FAFD] px-3 lg:py-3 xl:py-3 rounded-full ">
           <div className="searchbox flex items-center bg-white px-2 rounded-full">
             <img src={search} alt="" />
             <input
@@ -87,18 +93,25 @@ const Navbar = () => {
             <img src={bell} className="w-4" />
           </div>
           {/* login */}
-          <button onClick={handleLogout} className="bg-black px-2 text-md py-1 text-white rounded-full">Log out</button>
+          <button
+            onClick={handleLogout}
+            className="bg-black px-2 text-md py-1 text-white rounded-full"
+          >
+            Log out
+          </button>
           {/* <img src={userImg} className="lg:w-[25px] xl:w-[35px]" /> */}
           <div className="bg-blue-300 w-[30px] flex items-center justify-center  text-white  font-semibold text-lg rounded-full">
-          <p className="">{userName.slice(0,1)}</p>
+            <p className="">{userName.slice(0, 1)}</p>
           </div>
-        
         </div>
       </div>
 
       <div className="resp-navbar sm:hidden w-[100%] flex items-center justify-between font-lato sticky top-0 py-2 bg-white">
         <div className="first-container flex items-center gap-3">
-          <div className="icon-container cursor-pointer" onClick={handleSidebar}>
+          <div
+            className="icon-container cursor-pointer"
+            onClick={handleSidebar}
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="36"
@@ -133,7 +146,10 @@ const Navbar = () => {
         }`}
       >
         <div className="close-container relative">
-          <div className="close-icon absolute right-0 cursor-pointer" onClick={handleSidebar}>
+          <div
+            className="close-icon absolute right-0 cursor-pointer"
+            onClick={handleSidebar}
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="26"

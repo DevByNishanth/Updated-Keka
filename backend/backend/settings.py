@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_rest_passwordreset', 
     "corsheaders",
     'rest_framework',
     'rest_framework_simplejwt',
@@ -47,6 +48,7 @@ INSTALLED_APPS = [
     'employees',
     'leave',
     'admin_dashboard',
+    
 ]
 
 MIDDLEWARE = [
@@ -120,7 +122,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'backend.wsgi.application'
-
+FRONTEND_URL = "http://localhost:5173"
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
@@ -132,7 +134,7 @@ DATABASES = {
         'USER': 'root',
         'PASSWORD':'mysql',
         'HOST': 'localhost',
-        'PORT': '3307',
+        'PORT': '3306',
     }
 }
 
@@ -166,6 +168,15 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_TZ = True
+
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587  
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'bsanthiya0616@gmail.com'
+EMAIL_HOST_PASSWORD = 'urfy dszj bkak wjsn'
+
 
 
 # Static files (CSS, JavaScript, Images)

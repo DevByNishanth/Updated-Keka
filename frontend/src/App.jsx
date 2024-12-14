@@ -7,30 +7,35 @@ import LoginForm from "./components/LoginForm";
 import AdminDashboard from "./Pages/AdminDashboard";
 
 import EditForm from "./components/EditForm";
+import ForgotPassword from "./components/ForgotPassword";
+import EnterOtp from "./components/EnterOtp";
+import ResetPassword from "./components/ResetPassword";
+import Dashboard from "./Pages/Dashboard";
 const App = () => {
   return (
     <>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <>
+              <LoginForm />
+            </>
+          }
+        ></Route>
+        <Route path="/forgotPassword" element={<ForgotPassword />}></Route>
+        <Route path="/enterOtp" element={<EnterOtp />}></Route>
+        <Route path="/re-enterPassword" element={<ResetPassword />}></Route>
+      </Routes>
       <div className="main-container mt-2  sm:mt-2 mx-4 sm:mx-[40px]">
-        {/* <Navbar /> */}
-        {/* <EmployeeDetails/> */}
-        {/* <MyDetails /> */}
-
         <Routes>
-     <Route
-            path="/"
-            element={
-              <>
-                <LoginForm />
-              </>
-            }
-          ></Route>
-          <Route path="/dashboard" element={<MyDetails />}></Route>
+          <Route path="/Dashboard" element={<Dashboard/>}></Route>
+          <Route path="/MyDetails" element={<MyDetails />}></Route>
           <Route path="/AdminDashboard" element={<AdminDashboard />}></Route>
           <Route path="/employeeDetails" element={<EmployeeDetails />}></Route>
-        </Routes>     
+        </Routes>
 
         {/* <EditForm/> */}
-        
       </div>
     </>
   );

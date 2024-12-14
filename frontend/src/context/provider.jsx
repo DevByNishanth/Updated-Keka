@@ -1,7 +1,7 @@
 import { Data } from "./store";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import {jwtDecode} from "jwt-decode"; // Correct the import from 'jwtDecode' to 'jwt-decode'
+import { jwtDecode } from "jwt-decode"; // Correct the import from 'jwtDecode' to 'jwt-decode'
 
 export const DataProvider = ({ children }) => {
   const [employeeLeaveDetails, setEmployeeLeaveDetails] = useState([]);
@@ -9,8 +9,11 @@ export const DataProvider = ({ children }) => {
   const [userId, setUserId] = useState(null); // State to store the user ID
   const [token, setToken] = useState(localStorage.getItem("jwtToken")); // Use state for token
   const [userName, setUserName] = useState("");
+  const [globalEmail, setGlobalEmail] = useState(null);
+  const [globalOtp, setGlobalOtp] = useState(null);
+  const [globalUserName, setGlobalUserName] = useState(null);
 
- const [deletingLeaveId, setDeletingLeaveId] = useState(null);
+  const [deletingLeaveId, setDeletingLeaveId] = useState(null);
 
   // Decode the token and set userId when token changes
   useEffect(() => {
@@ -37,7 +40,6 @@ export const DataProvider = ({ children }) => {
         })
         .then((response) => {
           setEmployeeLeaveDetails(response.data);
-          
         })
         .catch((error) => {
           console.error("Error fetching leave details:", error);
@@ -69,7 +71,7 @@ export const DataProvider = ({ children }) => {
       )
     );
   };
-  console.log("UserNAme :", userName)
+  console.log("UserNAme :", userName);
   return (
     <Data.Provider
       value={{
@@ -80,10 +82,16 @@ export const DataProvider = ({ children }) => {
         updateLeave,
         userId,
         setToken, // Pass setToken to allow token update from other components (e.g., login page)
-        userName, 
+        userName,
         setUserName,
         deletingLeaveId,
-         setDeletingLeaveId,
+        setDeletingLeaveId,
+        globalEmail,
+        setGlobalEmail,
+        globalOtp,
+        setGlobalOtp,
+        globalUserName,
+        setGlobalUserName,
       }}
     >
       {children}
